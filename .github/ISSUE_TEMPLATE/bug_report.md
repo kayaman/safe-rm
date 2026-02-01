@@ -25,7 +25,7 @@ What actually happened.
 ## Environment
 - OS: [e.g. OpenSUSE Tumbleweed, Ubuntu 22.04, macOS 13]
 - Shell: [e.g. zsh 5.9]
-- Safe-RM version: [e.g. 1.0.0]
+- Safe-RM version: [e.g. 1.0.1]
 - Installation method: [oh-my-zsh plugin / standalone]
 - oh-my-zsh version: [if applicable]
 

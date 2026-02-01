@@ -247,7 +247,7 @@ Use the bug report template:
 **Environment:**
 - OS: OpenSUSE Tumbleweed
 - Shell: zsh 5.9
-- Safe-RM: v1.0.0
+- Safe-RM: v1.0.1
 ```
 
 ## Feature Requests
