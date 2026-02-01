@@ -49,7 +49,8 @@ safe-to-delete() {
         -name ".venv" -o \
         -name "venv" \
     \) 2>/dev/null | while read -r dir; do
-        local size=$(du -sh "$dir" 2>/dev/null | cut -f1)
+        local size
+        size=$(du -sh "$dir" 2>/dev/null | cut -f1)
         echo "  $dir ($size)"
     done
     
@@ -58,7 +59,8 @@ safe-to-delete() {
     echo "=========================================="
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         git ls-files --others --exclude-standard | head -20
-        local count=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)
+        local count
+        count=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)
         if [[ $count -gt 20 ]]; then
             echo "  ... and $((count - 20)) more"
         fi
@@ -90,21 +92,24 @@ safe-rm-status() {
 
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         echo "[OK] In Git repository: $(git rev-parse --show-toplevel)"
-        local untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)
+        local untracked
+        untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l)
         echo "  -> $untracked untracked files"
     else
         echo "[--] Not in a Git repository"
     fi
 
     if [[ -f "$SAFE_RM_AUDIT_LOG" ]]; then
-        local today_count=$(grep "$(date +%Y-%m-%d)" "$SAFE_RM_AUDIT_LOG" 2>/dev/null | wc -l)
-        local total_count=$(wc -l < "$SAFE_RM_AUDIT_LOG" 2>/dev/null)
+        local today_count total_count
+        today_count=$(grep "$(date +%Y-%m-%d)" "$SAFE_RM_AUDIT_LOG" 2>/dev/null | wc -l)
+        total_count=$(wc -l < "$SAFE_RM_AUDIT_LOG" 2>/dev/null)
         echo "[OK] Audit log: $SAFE_RM_AUDIT_LOG ($total_count total, $today_count today)"
     else
         echo "[--] No audit log yet"
     fi
 
-    local trash_count=$(trash-list 2>/dev/null | wc -l)
+    local trash_count
+    trash_count=$(trash-list 2>/dev/null | wc -l)
     echo "[OK] Trashed files: $trash_count items"
 
     if command -v snapper >/dev/null 2>&1; then

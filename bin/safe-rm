@@ -26,7 +26,8 @@ log_operation() {
     local classification="$1"
     local path="$2"
     local action="$3"
-    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    local timestamp
+    timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     
     echo "$timestamp | $classification | $path | $action" >> "$AUDIT_LOG" 2>/dev/null || true
 }
@@ -72,9 +73,10 @@ is_source_code() {
 is_recently_modified() {
     local file="$1"
     if [[ -f "$file" ]]; then
-        local file_time=$(stat -c %Y "$file" 2>/dev/null || stat -f %m "$file" 2>/dev/null)
-        local current_time=$(date +%s)
-        local age=$((current_time - file_time))
+        local file_time current_time age
+        file_time=$(stat -c %Y "$file" 2>/dev/null || stat -f %m "$file" 2>/dev/null)
+        current_time=$(date +%s)
+        age=$((current_time - file_time))
         [[ $age -lt 86400 ]]
     else
         return 1
@@ -83,7 +85,8 @@ is_recently_modified() {
 
 classify_file() {
     local file="$1"
-    local basename=$(basename "$file")
+    local basename
+    basename=$(basename "$file")
 
     case "$file" in
         .git|.git/*|/|/home|/etc|/usr|/var|/bin|/sbin|/lib|/lib64)
@@ -143,8 +146,9 @@ classify_file() {
 delete_file() {
     local file="$1"
     local force="$2"
-    local abs_path=$(readlink -f "$file" 2>/dev/null || echo "$file")
-    local classification=$(classify_file "$abs_path")
+    local abs_path classification
+    abs_path=$(readlink -f "$file" 2>/dev/null || echo "$file")
+    classification=$(classify_file "$abs_path")
     
     case "$classification" in
         BLOCK)
@@ -155,7 +159,7 @@ delete_file() {
             
         ALLOW)
             if [[ "$force" == "true" ]]; then
-                $REAL_RM -rf "$file"
+                "$REAL_RM" -rf "$file"
                 echo -e "${GREEN}DELETED:${NC} $file (build artifact)"
                 log_operation "ALLOW" "$abs_path" "deleted"
             else
@@ -207,7 +211,7 @@ main() {
                 shift
                 echo -e "${RED}WARNING: Using real rm (bypassing protection, logged)${NC}" >&2
                 log_operation "BYPASS" "$*" "real-rm-used"
-                exec $REAL_RM "$@"
+                exec "$REAL_RM" "$@"
                 ;;
             --help|-h)
                 cat << 'EOF'
