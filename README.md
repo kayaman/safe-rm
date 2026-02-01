@@ -3,9 +3,9 @@
 **Intelligent file deletion protection for Git projects with AI coding agent support**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/release/kayaman/safe-rm.svg)](https://GitHub.com/kayaman/safe-rm/releases/)
+[![GitHub release](https://img.shields.io/github/release/kayaman/safe-rm.svg)](https://github.com/kayaman/safe-rm/releases/)
 [![GitHub stars](https://img.shields.io/github/stars/kayaman/safe-rm.svg)](https://github.com/kayaman/safe-rm/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/kayaman/safe-rm.svg)](https://GitHub.com/kayaman/safe-rm/issues/)
+[![GitHub issues](https://img.shields.io/github/issues/kayaman/safe-rm.svg)](https://github.com/kayaman/safe-rm/issues/)
 [![ZSH](https://img.shields.io/badge/shell-zsh-green.svg)](https://www.zsh.org/)
 [![Oh My Zsh](https://img.shields.io/badge/framework-oh--my--zsh-blue.svg)](https://ohmyz.sh/)
 
