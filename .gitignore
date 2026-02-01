@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Test artifacts
+test-*/
+*.test
+
+# User-specific (legacy paths; config/state default: ~/.config/safe-rm/, ~/.local/state/safe-rm/)
+.safe-rm-rules.yaml
+.rm-audit.log
