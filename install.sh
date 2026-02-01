@@ -75,8 +75,8 @@ else
         # Fedora
         sudo dnf install -y trash-cli
     elif command -v brew >/dev/null 2>&1; then
-        # macOS
-        brew install trash-cli
+        # macOS (Homebrew exits 1 when formula is already installed)
+        brew install trash-cli || true
     else
         echo -e "${YELLOW}Warning: Could not detect package manager${NC}"
         echo "Please install trash-cli manually:"

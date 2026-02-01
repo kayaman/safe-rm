@@ -4,7 +4,6 @@ set -euo pipefail
 CONFIG_DIR="${SAFE_RM_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/safe-rm}"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/safe-rm"
 AUDIT_LOG="${SAFE_RM_AUDIT_LOG:-$STATE_DIR/audit.log}"
-RULES_FILE="$CONFIG_DIR/safe-rm-rules.yaml"
 REAL_RM="/usr/bin/rm"
 
 mkdir -p "$(dirname "$AUDIT_LOG")"
@@ -34,10 +33,6 @@ log_operation() {
 
 is_in_git_repo() {
     git rev-parse --is-inside-work-tree >/dev/null 2>&1
-}
-
-get_git_root() {
-    git rev-parse --show-toplevel 2>/dev/null || echo ""
 }
 
 is_untracked() {
